@@ -27,4 +27,9 @@ export const config = {
   ripple: {
     adminFeePercent: parseInt(process.env.RIPPLE_ADMIN_FEE_PERCENT || '10', 10),
   },
+
+  resend: {
+    apiKey:    required('RESEND_API_KEY'),
+    fromEmail: process.env.RESEND_FROM_EMAIL || 'hello@joinripple.com.au',
+  },
 } as const;

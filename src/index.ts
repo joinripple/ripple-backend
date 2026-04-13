@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
+import path from 'path';
 import { config } from './config';
 import { initCronJobs } from './jobs/scheduler';
 
@@ -11,6 +12,7 @@ import subscriptionsRouter from './routes/subscriptions';
 import userRouter from './routes/user';
 import spotlightRouter from './routes/spotlight';
 import webhooksRouter from './routes/webhooks';
+import waitlistRouter from './routes/waitlist';
 
 const app = express();
 
@@ -41,11 +43,15 @@ app.use('/api/subscriptions', subscriptionsRouter);
 app.use('/api/user', userRouter);
 app.use('/api/spotlight', spotlightRouter);
 app.use('/api/webhooks/stripe', webhooksRouter);
+app.use('/api/waitlist', waitlistRouter);
 
 // Health check
 app.get('/health', (_req, res) => {
   res.json({ status: 'ok', env: config.nodeEnv });
 });
+
+// Landing page
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
 // ── Start Server ────────────────────────────
 

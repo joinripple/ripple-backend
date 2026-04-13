@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ripple – Give locally, change everything</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --blue:    #0EA5E9;
+      --blue-dk: #0284C7;
+      --ink:     #0F172A;
+      --muted:   #64748B;
+      --border:  #E2E8F0;
+      --bg:      #F8FAFC;
+      --white:   #FFFFFF;
+      --radius:  12px;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Nav ── */
+    nav {
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+    }
+    .logo {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--blue);
+      letter-spacing: -0.5px;
+    }
+    .logo span { color: var(--ink); }
+
+    /* ── Hero ── */
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 24px 80px;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #E0F2FE;
+      color: var(--blue-dk);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 999px;
+      margin-bottom: 24px;
+      letter-spacing: 0.02em;
+    }
+    .badge::before { content: '🌊'; }
+
+    h1 {
+      font-size: clamp(2rem, 5vw, 3.25rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -1px;
+      max-width: 640px;
+      margin-bottom: 20px;
+    }
+    h1 em {
+      font-style: normal;
+      color: var(--blue);
+    }
+
+    .sub {
+      font-size: 1.1rem;
+      color: var(--muted);
+      max-width: 480px;
+      line-height: 1.6;
+      margin-bottom: 48px;
+    }
+
+    /* ── Card ── */
+    .card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 36px;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+    }
+    .card h2 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+    label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    input {
+      padding: 11px 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 1rem;
+      color: var(--ink);
+      background: var(--bg);
+      transition: border-color 0.15s, box-shadow 0.15s;
+      outline: none;
+      width: 100%;
+    }
+    input:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(14,165,233,0.15);
+    }
+    input::placeholder { color: #94A3B8; }
+
+    button[type="submit"] {
+      width: 100%;
+      padding: 13px;
+      background: var(--blue);
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: background 0.15s, transform 0.1s;
+    }
+    button[type="submit"]:hover  { background: var(--blue-dk); }
+    button[type="submit"]:active { transform: scale(0.98); }
+    button[type="submit"]:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .msg {
+      margin-top: 16px;
+      font-size: 0.9rem;
+      border-radius: 8px;
+      padding: 10px 14px;
+      display: none;
+    }
+    .msg.success { background: #F0FDF4; color: #166534; display: block; }
+    .msg.error   { background: #FEF2F2; color: #991B1B; display: block; }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 24px;
+      font-size: 0.8rem;
+      color: #94A3B8;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="logo">ripple<span>.</span></div>
+  </nav>
+
+  <main>
+    <div class="badge">Coming soon to Sydney</div>
+
+    <h1>Give locally,<br /><em>change everything.</em></h1>
+
+    <p class="sub">
+      Ripple connects you with not-for-profits in your neighbourhood.
+      Subscribe from $10/month — 90% goes directly to the cause.
+    </p>
+
+    <div class="card">
+      <h2>Join the waitlist</h2>
+      <form id="waitlist-form">
+        <div class="field">
+          <label for="name">Full name</label>
+          <input id="name" name="name" type="text" placeholder="Alex Smith" required />
+        </div>
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" placeholder="alex@example.com" required />
+        </div>
+        <div class="field">
+          <label for="suburb">Suburb</label>
+          <input id="suburb" name="suburb" type="text" placeholder="Surry Hills" />
+        </div>
+        <button type="submit" id="submit-btn">Count me in</button>
+        <div class="msg" id="msg"></div>
+      </form>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2026 Ripple · Sydney, Australia
+  </footer>
+
+  <script>
+    const form = document.getElementById('waitlist-form');
+    const btn  = document.getElementById('submit-btn');
+    const msg  = document.getElementById('msg');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      btn.disabled = true;
+      btn.textContent = 'Joining…';
+      msg.className = 'msg';
+      msg.textContent = '';
+
+      const body = {
+        name:   document.getElementById('name').value.trim(),
+        email:  document.getElementById('email').value.trim(),
+        suburb: document.getElementById('suburb').value.trim() || null,
+      };
+
+      try {
+        const res  = await fetch('/api/waitlist', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(body),
+        });
+        const json = await res.json();
+
+        if (res.ok) {
+          msg.className = 'msg success';
+          msg.textContent = "You're on the list! Check your inbox for a confirmation.";
+          form.reset();
+        } else {
+          msg.className = 'msg error';
+          msg.textContent = json.error?.message || 'Something went wrong. Please try again.';
+        }
+      } catch {
+        msg.className = 'msg error';
+        msg.textContent = 'Network error. Please try again.';
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Count me in';
+      }
+    });
+  </script>
+
+</body>
+</html>
